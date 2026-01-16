@@ -1,2 +1,0 @@
-# newsletterai
-Newsletter Automation
