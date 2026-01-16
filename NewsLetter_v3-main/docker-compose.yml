@@ -1,0 +1,23 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    container_name: newsletter-server
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+      - ./server/.env
+    restart: unless-stopped
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    container_name: newsletter-client
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
+    restart: unless-stopped

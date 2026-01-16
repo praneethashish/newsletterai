@@ -1,0 +1,19 @@
+FROM node:18-bullseye
+WORKDIR /app
+
+# Install system packages required by Playwright
+RUN apt-get update && apt-get install -y \
+  libxcomposite1 libxdamage1 libxrandr2 libgbm1 \
+  libgtk-3-0 libasound2 libnss3 libxss1 libatk-bridge2.0-0 \
+  fonts-liberation libappindicator3-1 xdg-utils && \
+  apt-get clean
+
+COPY package*.json ./
+
+RUN npm install
+RUN npx playwright install --with-deps
+
+COPY server/ .
+
+EXPOSE 5000
+CMD ["node", "index.js"]
